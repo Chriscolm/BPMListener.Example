@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BPMListener.Example", "BPMListener.Example\BPMListener.Example.csproj", "{8AE2D008-3F86-4EBB-8050-E1BDE61A553C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BPM.Listener.Example.LongRunningProcess", "BPM.Listener.Example.LongRunningProcess\BPM.Listener.Example.LongRunningProcess.csproj", "{910E7C17-245F-426D-AC76-7B0638F3E804}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "BPM.Listener.Example.ShortRunningProcess", "BPM.Listener.Example.ShortRunningProcess\BPM.Listener.Example.ShortRunningProcess.pyproj", "{EF0C9FA9-01C3-4C36-BD63-0012A6B6F5E4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8AE2D008-3F86-4EBB-8050-E1BDE61A553C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AE2D008-3F86-4EBB-8050-E1BDE61A553C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AE2D008-3F86-4EBB-8050-E1BDE61A553C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AE2D008-3F86-4EBB-8050-E1BDE61A553C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{910E7C17-245F-426D-AC76-7B0638F3E804}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{910E7C17-245F-426D-AC76-7B0638F3E804}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{910E7C17-245F-426D-AC76-7B0638F3E804}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{910E7C17-245F-426D-AC76-7B0638F3E804}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF0C9FA9-01C3-4C36-BD63-0012A6B6F5E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF0C9FA9-01C3-4C36-BD63-0012A6B6F5E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6C4938D3-8C84-4F20-9449-1092F61D32F9}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Definitions_1fnpcm2" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.6.0">
+  <bpmn:process id="ExampleProcess" name="ExampleProcess" isExecutable="true" camunda:historyTimeToLive="5">
+    <bpmn:sequenceFlow id="Flow_0r5coyc" sourceRef="StartExampleProcess" targetRef="DoLongRunningTask" />
+    <bpmn:sequenceFlow id="Flow_0pxdflj" sourceRef="DoLongRunningTask" targetRef="DoShortRunningTask" />
+    <bpmn:endEvent id="EndExampleProcess" name="EndExampleProcess">
+      <bpmn:incoming>Flow_070m3v4</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_070m3v4" sourceRef="DoShortRunningTask" targetRef="EndExampleProcess" />
+    <bpmn:serviceTask id="DoLongRunningTask" name="DoLongRunningTask" default="Flow_0pxdflj" camunda:type="external" camunda:topic="LongRunning">
+      <bpmn:incoming>Flow_0r5coyc</bpmn:incoming>
+      <bpmn:outgoing>Flow_0pxdflj</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1wvdna9</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="DoShortRunningTask" name="DoShortRunningTask" default="Flow_070m3v4" camunda:type="external" camunda:topic="ShortRunning">
+      <bpmn:incoming>Flow_0pxdflj</bpmn:incoming>
+      <bpmn:outgoing>Flow_070m3v4</bpmn:outgoing>
+      <bpmn:outgoing>Flow_18ngw34</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:startEvent id="StartExampleProcess" name="StartExampleProcess">
+      <bpmn:outgoing>Flow_0r5coyc</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1wvdna9" sourceRef="DoLongRunningTask" targetRef="InspectError">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${hasError == "true"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0445jrb" sourceRef="InspectError" targetRef="EndExampleProcessWithError" />
+    <bpmn:sendTask id="InspectError" name="InspectError">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="payload">${errorMessage}</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://localhost:8787/message/</camunda:inputParameter>
+            <camunda:inputParameter name="method">POST</camunda:inputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1wvdna9</bpmn:incoming>
+      <bpmn:incoming>Flow_18ngw34</bpmn:incoming>
+      <bpmn:outgoing>Flow_0445jrb</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:sequenceFlow id="Flow_18ngw34" sourceRef="DoShortRunningTask" targetRef="InspectError">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${hasError == "true"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent id="EndExampleProcessWithError" name="EndExampleProcessWithError">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="errorMessage">${errorMessage}</camunda:inputParameter>
+          <camunda:inputParameter name="errorCode">${errorCode}</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0445jrb</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="ExampleProcess">
+      <bpmndi:BPMNEdge id="Flow_070m3v4_di" bpmnElement="Flow_070m3v4">
+        <di:waypoint x="530" y="117" />
+        <di:waypoint x="592" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0pxdflj_di" bpmnElement="Flow_0pxdflj">
+        <di:waypoint x="370" y="117" />
+        <di:waypoint x="430" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0r5coyc_di" bpmnElement="Flow_0r5coyc">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1wvdna9_di" bpmnElement="Flow_1wvdna9">
+        <di:waypoint x="320" y="157" />
+        <di:waypoint x="320" y="260" />
+        <di:waypoint x="430" y="260" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0445jrb_di" bpmnElement="Flow_0445jrb">
+        <di:waypoint x="530" y="260" />
+        <di:waypoint x="592" y="260" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_18ngw34_di" bpmnElement="Flow_18ngw34">
+        <di:waypoint x="480" y="157" />
+        <di:waypoint x="480" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_0di7qns_di" bpmnElement="EndExampleProcess" bioc:stroke="rgb(67, 160, 71)" bioc:fill="rgb(200, 230, 201)">
+        <dc:Bounds x="592" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="567" y="142" width="86" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1wd54h9_di" bpmnElement="DoLongRunningTask">
+        <dc:Bounds x="270" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1674kgq_di" bpmnElement="DoShortRunningTask">
+        <dc:Bounds x="430" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0zm2hka_di" bpmnElement="StartExampleProcess">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="155" y="142" width="84" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ieuyh0_di" bpmnElement="InspectError">
+        <dc:Bounds x="430" y="220" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0fg9a0c_di" bpmnElement="EndExampleProcessWithError" bioc:stroke="rgb(229, 57, 53)" bioc:fill="rgb(255, 205, 210)">
+        <dc:Bounds x="592" y="242" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="567" y="285" width="86" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

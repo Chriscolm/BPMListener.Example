@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "BPM.Listener.Example.LongRunningProcess": {
+      "commandName": "Project",
+      "commandLineArgs": "1234"
+    }
+  }
+}
